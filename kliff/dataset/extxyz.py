@@ -236,7 +236,10 @@ def _parse_key_value(
         if dtype == "float":
             value = [float(i) for i in value]
         elif dtype == "int":
-            value = [int(i) for i in value]
+            if(all(i in ['T','F'] for i in value)):
+                value = [1 if i =='T' else 0 for i in value]
+            else:
+                value = [int(i) for i in value]
     except Exception as e:
         raise InputError(f"{e}.\nCorrupted {key} data at line 2 of file {filename}.")
 
